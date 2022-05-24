@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAP_CODE_DELAY 10
 
 // Basic RGB configuration
-#define RGB_DI_PIN D3
+// #define RGB_DI_PIN D3
 #define RGBLIGHT_SPLIT
 
 // Underglow LEDs
@@ -52,8 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLED_NUM 70
 
 // Disable depreciated
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+// #define NO_ACTION_MACRO
+// #define NO_ACTION_FUNCTION
 
 //#define NO_AUTO_SHIFT_SPECIAL
 //#define NO_AUTO_SHIFT_NUMERIC
@@ -71,19 +71,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  These options are also useful to firmware size reduction.
  */
 
-/* disable debug print */
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif
-
-/* disable print */
-#ifndef NO_PRINT
-#define NO_PRINT
-#endif
-
 /* disable action features */
-#define NO_ACTION_ONESHOT
+// #define NO_ACTION_ONESHOT
 
 /* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
+// #define BOOTMAGIC_LITE_ROW 0
+// #define BOOTMAGIC_LITE_COLUMN 0
