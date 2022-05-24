@@ -24,8 +24,8 @@ enum layers {
 
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
-    KC_NUM,
-    KC_FUNC,
+    // KC_NUM,
+    // KC_FUNC,
 };
 
 // Tap Dance declarations
@@ -163,12 +163,13 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         print_status_narrow();
     } else {
         render_logo();
     }
+    return false;
 }
 
 #endif
