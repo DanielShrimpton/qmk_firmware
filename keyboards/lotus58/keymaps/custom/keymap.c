@@ -30,6 +30,7 @@ enum layers {
 // Not sure yet
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
+    KC_GAME,
     // KC_NUM,
     // KC_FUNC,
 };
@@ -88,21 +89,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_LGUI, CK_DELINS, TT(_NUM), CK_LALT,   CK_LSPC,      CK_RENT, CK_RALT, TT(_FUNC), KC_BSPC, TD(MEDIA_SCROLL)
 ),
 
-[_NUM] = LAYOUT(
-  _______,   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                         KC_CIRC,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX,   KC_UP,  XXXXXXX, XXXXXXX, XXXXXXX,                         KC_HASH,    KC_4,    KC_5,    KC_6, XXXXXXX, XXXXXXX,
-  XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, KC_LBRC, KC_RBRC,                         KC_AMPR,    KC_1,    KC_2,    KC_3, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, KC_PAST,  KC_PPLS, KC_PSLS,  KC_EQL, _______,       _______,  KC_DLR,    KC_0, KC_SCLN, KC_COLN, KC_PMNS, _______,
-                    _______,  DF(_GAME), TT(_NUM), DF(_QWERTY), _______,       _______, _______, _______, _______, _______
-),
-
 // [_NUM] = LAYOUT(
 //   _______,   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                         KC_CIRC,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
 //   _______, XXXXXXX,   KC_UP,  XXXXXXX, XXXXXXX, XXXXXXX,                         KC_HASH,    KC_4,    KC_5,    KC_6, XXXXXXX, XXXXXXX,
 //   XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, KC_LBRC, KC_RBRC,                         KC_AMPR,    KC_1,    KC_2,    KC_3, XXXXXXX, XXXXXXX,
 //   _______, XXXXXXX, KC_PAST,  KC_PPLS, KC_PSLS,  KC_EQL, _______,       _______,  KC_DLR,    KC_0, KC_SCLN, KC_COLN, KC_PMNS, _______,
-//                     _______,  _______, _______, _______, _______,       _______, _______, _______, _______, _______
+//                     _______,  DF(_GAME), TT(_NUM), DF(_QWERTY), _______,       _______, _______, _______, _______, _______
 // ),
+
+[_NUM] = LAYOUT(
+  _______,   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                         KC_CIRC,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
+  _______, XXXXXXX,   KC_UP,  XXXXXXX, XXXXXXX, XXXXXXX,                         KC_HASH,    KC_4,    KC_5,    KC_6, XXXXXXX, XXXXXXX,
+  XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, KC_LBRC, KC_RBRC,                         KC_AMPR,    KC_1,    KC_2,    KC_3, XXXXXXX, XXXXXXX,
+  _______, XXXXXXX, KC_PAST,  KC_PPLS, KC_PSLS,  KC_EQL, _______,       _______,  KC_DLR,    KC_0, KC_SCLN, KC_COLN, KC_PMNS, _______,
+                    _______,  _______, _______, _______, _______,       _______, _______, _______, _______, _______
+),
 
 [_FUNC] = LAYOUT(
   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                           KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, _______,
@@ -114,10 +115,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYSTEM] = LAYOUT(
   XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  RESET  , XXXXXXX,KC_QWERTY,XXXXXXX,XXXXXXX,KC_ASTG,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  RESET  , XXXXXXX,KC_QWERTY,KC_GAME,XXXXXXX,KC_ASTG,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX,XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                   _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ \
+                   _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ 
 ),
 
 [_GAME] = LAYOUT(
@@ -215,11 +216,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_QWERTY);
             }
             return false;
+        case KC_GAME:
+            if (record->event.pressed) {
+                switch (get_highest_layer(default_layer_state)) {
+                    case _GAME:
+                        set_single_persistent_default_layer(_QWERTY);
+                        break;
+                    default:
+                        set_single_persistent_default_layer(_GAME);
+                        break;
+                }
+            }
+            return false;
     }
     return true;
 }
 
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    switch(get_highest_layer(state)) {
+        case _GAME:
+            autoshift_disable();
+            break;
+        default:
+            autoshift_enable();
+            break;
+    }
+    return state;
+}
+
 layer_state_t  layer_state_set_user(layer_state_t state) {
+    /*
+    For auto shift disable with layers
+    https://www.reddit.com/r/olkb/comments/p15rez/disable_autoshift_on_layer_change_qmk/
+    */
     switch (get_highest_layer(state)) {
         case _QWERTY:
             rgblight_mode(1);
