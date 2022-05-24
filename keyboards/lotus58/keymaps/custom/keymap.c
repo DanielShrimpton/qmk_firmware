@@ -209,6 +209,10 @@ bool oled_task_user(void) {
 
 #endif
 
+void keyboard_post_init_user(void) {
+    rgblight_mode(2);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_QWERTY:
@@ -249,22 +253,22 @@ layer_state_t  layer_state_set_user(layer_state_t state) {
     For auto shift disable with layers
     https://www.reddit.com/r/olkb/comments/p15rez/disable_autoshift_on_layer_change_qmk/
     */
-    switch (get_highest_layer(state)) {
-        case _QWERTY:
-            rgblight_mode(1);
-            // rgblight_setrgb(RGB_BLUE);
-            break;
-        case _NUM:
-            // rgblight_setrgb(RGB_WHITE);
-            rgblight_mode(2);
-            break;
-        case _GAME:
-            rgblight_mode(3);
-            break;
-        default:
-            rgblight_setrgb(RGB_GREEN);
-            break;
-    }
+    // switch (get_highest_layer(state)) {
+    //     case _QWERTY:
+    //         rgblight_mode(1);
+    //         // rgblight_setrgb(RGB_BLUE);
+    //         break;
+    //     case _NUM:
+    //         // rgblight_setrgb(RGB_WHITE);
+    //         rgblight_mode(2);
+    //         break;
+    //     case _GAME:
+    //         rgblight_mode(3);
+    //         break;
+    //     default:
+    //         rgblight_setrgb(RGB_GREEN);
+    //         break;
+    // }
    return update_tri_layer_state(state, _NUM, _FUNC, _SYSTEM);
 }
 

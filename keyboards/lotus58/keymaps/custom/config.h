@@ -60,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 // #define RGBLIGHT_MODE_RAINBOW_MOOD
-// #define RGBLIGHT_LIMIT_VAL 120
+#define RGBLIGHT_LIMIT_VAL 120
 
 // Disable depreciated
 // #define NO_ACTION_MACRO
