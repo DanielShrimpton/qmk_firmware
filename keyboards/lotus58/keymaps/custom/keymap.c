@@ -297,9 +297,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         switch (get_highest_layer(layer_state)) {
         case _QWERTY:
             if (clockwise) {
-                rgblight_increase_val();
+                tap_code(KC_VOLU);
             } else {
-                rgblight_decrease_val();
+                tap_code(KC_VOLD);
             }
             break;
         case _NUM:
