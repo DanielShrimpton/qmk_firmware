@@ -57,7 +57,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // Not sure yet
 #define CK_ESC TD(ESC_PIPE)
 #define CK_LCTRL MT(MOD_LCTL, KC_LEFT)
-#define CK_LALT MT(MOD_LALT, KC_RGUI)
+#define CK_LALT MT(MOD_LALT, KC_LGUI)
 #define CK_LSPC MT(MOD_LSFT, KC_SPC)
 #define CK_DELINS TD(DEL_INS)
 #define CK_RENT MT(MOD_RSFT, KC_ENT)
