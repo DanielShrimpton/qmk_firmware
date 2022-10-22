@@ -21,6 +21,7 @@
 // Keymap layers
 enum layers {
     _QWERTY,
+    _WORKMAN,
     _GAME,
     _NUM,
     _FUNC,
@@ -31,6 +32,7 @@ enum layers {
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_GAME,
+    KC_WORKMAN,
     // KC_NUM,
     // KC_FUNC,
     _SOUND_SWITCH,
@@ -63,6 +65,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define CK_RENT MT(MOD_RSFT, KC_ENT)
 #define CK_RALT MT(MOD_RALT, KC_APP)
 #define CK_RCTRL MT(MOD_RCTL, KC_RIGHT)
+
+// Have a look at https://github.com/vincelee888/lily58_bongocat/blob/master/keymap.c for workman layout reference
 
 /* Keymap for reference
  * ,-----------------------------------------.                    ,------------------------------------------.
@@ -115,11 +119,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_SYSTEM] = LAYOUT(
-    XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      RESET, XXXXXXX, KC_QWERTY, KC_GAME, XXXXXXX, KC_ASTG,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                        XXXXXXX, _______, _______, _______, _______,     _______, _______, _______, _______, XXXXXXX 
+    XXXXXXX,    XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      RESET, KC_WORKMAN, KC_QWERTY, KC_GAME, XXXXXXX, KC_ASTG,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX,    XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX,    XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                           XXXXXXX, _______, _______, _______, _______,     _______, _______, _______, _______, XXXXXXX
 ),
 
 [_GAME] = LAYOUT(
@@ -129,6 +133,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT,  KC_Z,    KC_X,      KC_C,     KC_V,    KC_B, TD(PG_DN),      KC_NUMLOCK, KC_N,    KC_M,      KC_COMM,   KC_DOT,  KC_SLSH, CK_RCTRL,
                    XXXXXXX,   TT(_NUM),  KC_LCTL, KC_LALT,    KC_SPC,      CK_RENT,    CK_RALT, TT(_FUNC), KC_BSPC,   XXXXXXX
 ),
+
+/* WORKMAN
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  -   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   Q  |   D  |   R  |   W  |   B  |                    |   J  |   F  |   U  |   P  |   ;  |  =   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |  #   |   A  |   S  |   H  |   T  |   G  |-------.    ,-------|   Y  |   N  |   E  |   O  |   I  |  '   |
+ * |------+------+------+------+------+------|  ENC  |    |  ENC  |------+------+------+------+------+------|
+ * |LCtrl |   Z  |   X  |   M  |   C  |   V  |-------|    |-------|   K  |   L  |   ,  |   .  |   /  |  #   |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   | Del  | Lower| Alt  | /Space  /       \Enter \  |  Alt | Raise| Bksp |
+ *                   | Ins  |      | Win  |/ Shift /         \ Shift\ | Menu |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+
+ [_WORKMAN] = LAYOUT(
+  KC_ESC,   KC_1,   KC_2,    KC_3,     KC_4,    KC_5,                              KC_6,    KC_7,      KC_8,    KC_9,    KC_0,    KC_MINUS, \
+  KC_TAB,   KC_Q,   KC_D,    KC_R,     KC_W,    KC_B,                              KC_J,    KC_F,      KC_U,    KC_P,    KC_SCLN, KC_EQUAL, \
+  KC_NUHS,  KC_A,   KC_S,    KC_H,     KC_T,    KC_G,                              KC_Y,    KC_N,      KC_E,    KC_O,    KC_I,    KC_QUOT, \
+  KC_LCTRL, KC_Z,   KC_X,    KC_M,     KC_C,    KC_V, _SOUND_SWITCH,    KC_NUMLOCK,KC_K,    KC_L,      KC_COMM, KC_DOT,  KC_SLSH, KC_NONUS_HASH, \
+                 XXXXXXX,  KC_DEL, TT(_NUM), CK_LALT,       CK_LSPC,    CK_RENT,   CK_RALT, TT(_FUNC), KC_BSPC, XXXXXXX
+),
+
 };
 
 #ifdef OLED_ENABLE
@@ -157,6 +185,9 @@ static void print_status_narrow(void) {
         case _GAME:
             oled_write_P(PSTR("Game "), false);
             break;
+        case _WORKMAN:
+            oled_write_P(PSTR("Wrkmn"), false);
+            break;
         default:
             oled_write_P(PSTR("Undef"), false);
     }
@@ -165,6 +196,9 @@ static void print_status_narrow(void) {
     oled_write_P(PSTR("Layer"), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
+            oled_write_P(PSTR("-Base\n"), false);
+            break;
+        case _WORKMAN:
             oled_write_P(PSTR("-Base\n"), false);
             break;
         case _FUNC:
@@ -235,7 +269,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        
+
+        case KC_WORKMAN:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_WORKMAN);
+                break;
+            }
+            return false;
+
         case _SOUND_SWITCH:
             if (record->event.pressed) {
                 register_code(KC_LCTRL);
