@@ -57,14 +57,26 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 // Not sure yet
-#define CK_ESC TD(ESC_PIPE)
-#define CK_LCTRL MT(MOD_LCTL, KC_LEFT)
+// #define CK_ESC TD(ESC_PIPE)
+// #define CK_LCTRL MT(MOD_LCTL, KC_LEFT)
 #define CK_LALT MT(MOD_LALT, KC_LGUI)
-#define CK_LSPC MT(MOD_LSFT, KC_SPC)
-#define CK_DELINS TD(DEL_INS)
+// #define CK_LSPC MT(MOD_LSFT, KC_SPC)
+// #define CK_DELINS TD(DEL_INS)
 #define CK_RENT MT(MOD_RSFT, KC_ENT)
 #define CK_RALT MT(MOD_RALT, KC_APP)
 #define CK_RCTRL MT(MOD_RCTL, KC_RIGHT)
+
+// home row mods
+#define HR_A MT(MOD_LCTL, KC_A)
+#define HR_S MT(MOD_LSFT, KC_S)
+#define HR_D MT(MOD_LALT, KC_D)
+#define HR_F MT(MOD_LGUI, KC_F)
+
+#define HR_J MT(MOD_RGUI, KC_J)
+#define HR_K MT(MOD_RALT, KC_K)
+#define HR_L MT(MOD_RSFT, KC_L)
+#define HR_SCLN MT(MOD_RCTL, KC_SCLN)
+
 
 // Have a look at https://github.com/vincelee888/lily58_bongocat/blob/master/keymap.c for workman layout reference
 
@@ -88,9 +100,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
       KC_ESC, KC_1,    KC_2,   KC_3,     KC_4,    KC_5,                              KC_6,    KC_7,      KC_8,    KC_9,   KC_0,    KC_MINS,
       KC_TAB, KC_Q,    KC_W,   KC_E,     KC_R,    KC_T,                              KC_Y,    KC_U,      KC_I,    KC_O,   KC_P,    KC_LBRC,
-     KC_NUHS, KC_A,    KC_S,   KC_D,     KC_F,    KC_G,                              KC_H,    KC_J,      KC_K,    KC_L,   KC_SCLN, KC_QUOT,
+     KC_NUHS, HR_A,    HR_S,   HR_D,     HR_F,    KC_G,                              KC_H,    HR_J,      HR_K,    HR_L,   HR_SCLN, KC_QUOT,
     KC_LCTRL, KC_Z,    KC_X,   KC_C,     KC_V,    KC_B, _SOUND_SWITCH,    KC_NUMLOCK,KC_N,    KC_M,      KC_COMM, KC_DOT, KC_SLSH, CK_RCTRL,
-                    XXXXXXX, KC_DEL, TT(_NUM), CK_LALT,       CK_LSPC,    CK_RENT,   CK_RALT, TT(_FUNC), KC_BSPC, XXXXXXX
+                    XXXXXXX, KC_DEL, TT(_NUM), CK_LALT,        KC_SPC,    CK_RENT,   KC_BSPC, TT(_FUNC), CK_RALT, XXXXXXX
 ),
 
 // [_NUM] = LAYOUT(
@@ -106,14 +118,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRAVE,   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                         KC_CIRC, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,
      _______, XXXXXXX,   KC_UP,  XXXXXXX, KC_LPRN, KC_RPRN,                         KC_HASH, KC_4,    KC_5,    KC_6,    XXXXXXX, XXXXXXX,
      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT, KC_LBRC, KC_RBRC,                         KC_AMPR, KC_1,    KC_2,    KC_3,    KC_UNDS, KC_NUHS,
-     _______, KC_NUBS, KC_PAST,  KC_PPLS, KC_PSLS,  KC_EQL, _______,       _______, KC_DLR,  KC_0,    KC_SCLN, KC_COLN, KC_PMNS, _______,
+     _______, KC_NUBS, KC_PAST,  KC_PPLS, KC_PSLS,  KC_EQL, _______,       _______, KC_DLR,  KC_0,    KC_COLN, KC_DOT,  KC_PMNS, _______,
                        XXXXXXX,  _______, _______, _______, _______,       _______, _______, _______, _______, XXXXXXX
 ),
 
 [_FUNC] = LAYOUT(
     _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                         KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  _______,
-    _______, _______, _______, _______, _______, _______,                         _______, _______, KC_UP,   _______,  _______, _______,
-    _______, KC_MPLY, KC_MPRV, KC_MNXT, _______, _______,                         _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, KC_NUHS,
+    _______, _______, _______, _______, KC_LPRN, KC_RPRN,                         _______, _______, KC_UP,   _______,  _______, _______,
+    _______, KC_MPLY, KC_MPRV, KC_MNXT, KC_LBRC, KC_RBRC,                         _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, KC_NUHS,
     _______, _______, _______, _______, _______, _______, _______,       _______, _______, KC_HOME, KC_END,  _______,  _______, _______,
                       XXXXXXX, _______, _______, KC_LGUI, _______,       _______, _______, _______, _______, XXXXXXX
 ),
@@ -131,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB,  KC_Q,    KC_W,      KC_E,     KC_R,    KC_T,                             KC_Y,    KC_U,      KC_I,      KC_O,    KC_P,    KC_LBRC,
     KC_CAPS,  KC_A,    KC_S,      KC_D,     KC_F,    KC_G,                             KC_H,    KC_J,      KC_K,      KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT,  KC_Z,    KC_X,      KC_C,     KC_V,    KC_B, TD(PG_DN),      KC_NUMLOCK, KC_N,    KC_M,      KC_COMM,   KC_DOT,  KC_SLSH, CK_RCTRL,
-                   XXXXXXX,   TT(_NUM),  KC_LCTL, KC_LALT,    KC_SPC,      CK_RENT,    CK_RALT, TT(_FUNC), KC_BSPC,   XXXXXXX
+                   XXXXXXX,   TT(_NUM),  KC_LCTL, KC_LALT,    KC_SPC,      CK_RENT,    KC_BSPC, TT(_FUNC), CK_RALT,   XXXXXXX
 ),
 
 /* WORKMAN
@@ -150,11 +162,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_WORKMAN] = LAYOUT(
-  KC_ESC,   KC_1,   KC_2,    KC_3,     KC_4,    KC_5,                              KC_6,    KC_7,      KC_8,    KC_9,    KC_0,    KC_MINUS, \
-  KC_TAB,   KC_Q,   KC_D,    KC_R,     KC_W,    KC_B,                              KC_J,    KC_F,      KC_U,    KC_P,    KC_SCLN, KC_EQUAL, \
-  KC_NUHS,  KC_A,   KC_S,    KC_H,     KC_T,    KC_G,                              KC_Y,    KC_N,      KC_E,    KC_O,    KC_I,    KC_QUOT, \
-  KC_LCTRL, KC_Z,   KC_X,    KC_M,     KC_C,    KC_V, _SOUND_SWITCH,    KC_NUMLOCK,KC_K,    KC_L,      KC_COMM, KC_DOT,  KC_SLSH, KC_NONUS_HASH, \
-                 XXXXXXX,  KC_DEL, TT(_NUM), CK_LALT,       CK_LSPC,    CK_RENT,   CK_RALT, TT(_FUNC), KC_BSPC, XXXXXXX
+  KC_ESC,   KC_1,   KC_2,    KC_3,     KC_4,    KC_5,                              KC_6,    KC_7,      KC_8,    KC_9,    KC_0,    KC_MINUS,
+  KC_TAB,   KC_Q,   KC_D,    KC_R,     KC_W,    KC_B,                              KC_J,    KC_F,      KC_U,    KC_P,    KC_SCLN, KC_EQUAL,
+  KC_NUHS,  KC_A,   KC_S,    KC_H,     KC_T,    KC_G,                              KC_Y,    KC_N,      KC_E,    KC_O,    KC_I,    KC_QUOT,
+  KC_LCTRL, KC_Z,   KC_X,    KC_M,     KC_C,    KC_V, _SOUND_SWITCH,    KC_NUMLOCK,KC_K,    KC_L,      KC_COMM, KC_DOT,  KC_SLSH, KC_NONUS_HASH,
+                 XXXXXXX,  KC_DEL, TT(_NUM), CK_LALT,        KC_SPC,    CK_RENT,   KC_BSPC, TT(_FUNC), CK_RALT, XXXXXXX
 ),
 
 };
@@ -289,17 +301,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-    switch(get_highest_layer(state)) {
-        case _GAME:
-            autoshift_disable();
-            break;
-        default:
-            autoshift_enable();
-            break;
-    }
-    return state;
-}
+// layer_state_t default_layer_state_set_user(layer_state_t state) {
+//     switch(get_highest_layer(state)) {
+//         case _GAME:
+//             autoshift_disable();
+//             break;
+//         default:
+//             autoshift_enable();
+//             break;
+//     }
+//     return state;
+// }
 
 layer_state_t  layer_state_set_user(layer_state_t state) {
     /*

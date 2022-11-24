@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 175
 #define TAPPING_TOGGLE 2
 #define TAP_CODE_DELAY 10
+#define IGNORE_MOD_TAP_INTERRUPT
 
 // Basic RGB configuration
 // #define RGB_DI_PIN D3
